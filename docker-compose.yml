@@ -1,9 +1,9 @@
-version: "3"
+version: '3'
 services:
   strapi:
     container_name: strapi
     build:
-      dockerfile: ./strapi
+      dockerfile: ./strapi/Dockerfile.dev
       args:
         EXTRA_PACKAGE: ${EXTRA_PACKAGE}
 
@@ -31,7 +31,7 @@ services:
       - ./.env:/opt/app/.env
       - ./strapi/public/uploads:/opt/app/public/uploads
     ports:
-      - "1337:1337"
+      - '1337:1337'
     networks:
       - strapi
     depends_on:
@@ -51,7 +51,7 @@ services:
     volumes:
       - ./data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - '3306:3306'
     networks:
       - strapi
   adminer:

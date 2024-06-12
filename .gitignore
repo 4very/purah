@@ -139,3 +139,5 @@ build
 .strapi-updater.json
 
 data
+
+strapi/public/uploads
