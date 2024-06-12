@@ -4,3 +4,5 @@
 .env
 build/
 node_modules/
+
+strapi/public/uploads

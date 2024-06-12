@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_summary_latest_3s",
+  "info": {
+    "displayName": "latest 3",
+    "icon": "file"
+  },
+  "options": {},
+  "attributes": {
+    "posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post"
+    }
+  }
+}
