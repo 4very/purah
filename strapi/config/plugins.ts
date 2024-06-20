@@ -7,4 +7,8 @@ export default () => ({
       logLevel: 4,
     },
   },
+  purah: {
+    enabled: true,
+    resolve: './src/plugins/purah',
+  },
 })

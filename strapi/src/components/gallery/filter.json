@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_gallery_filters",
+  "info": {
+    "displayName": "Filter",
+    "icon": "filter",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "data": {
+      "type": "json"
+    },
+    "tags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "gallery.tag"
+    }
+  }
+}

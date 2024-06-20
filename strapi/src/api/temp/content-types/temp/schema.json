@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "temps",
+  "info": {
+    "singularName": "temp",
+    "pluralName": "temps",
+    "displayName": "Temp",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "exif": {
+      "type": "customField",
+      "customField": "plugin::purah.EXIF"
+    },
+    "iso": {
+      "type": "integer"
+    },
+    "taken": {
+      "type": "datetime"
+    }
+  }
+}

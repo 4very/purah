@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "gallery_views",
+  "info": {
+    "singularName": "gallery-view",
+    "pluralName": "gallery-views",
+    "displayName": "GalleryView",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "photos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::photo.photo"
+    },
+    "filters": {
+      "type": "component",
+      "repeatable": true,
+      "max": 6,
+      "component": "gallery.filter"
+    }
+  }
+}
