@@ -17,7 +17,6 @@ export interface Photo {
     internal_id?: string;
     iso?: number;
     aperture?: number;
-    shutter_speed?: string;
     focal_length?: number;
     camera_body?: string;
     camera_lens?: string;
@@ -25,6 +24,7 @@ export interface Photo {
     last_modified?: Date;
     taken?: Date;
     metering_mode?: string;
+    shutter_speed?: number;
   };
 }
 export interface Photo_Plain {
@@ -37,7 +37,6 @@ export interface Photo_Plain {
   internal_id?: string;
   iso?: number;
   aperture?: number;
-  shutter_speed?: string;
   focal_length?: number;
   camera_body?: string;
   camera_lens?: string;
@@ -45,6 +44,7 @@ export interface Photo_Plain {
   last_modified?: Date;
   taken?: Date;
   metering_mode?: string;
+  shutter_speed?: number;
 }
 
 export interface Photo_NoRelations {
@@ -57,7 +57,6 @@ export interface Photo_NoRelations {
   internal_id?: string;
   iso?: number;
   aperture?: number;
-  shutter_speed?: string;
   focal_length?: number;
   camera_body?: string;
   camera_lens?: string;
@@ -65,6 +64,7 @@ export interface Photo_NoRelations {
   last_modified?: Date;
   taken?: Date;
   metering_mode?: string;
+  shutter_speed?: number;
 }
 
 export interface Photo_AdminPanelLifeCycle {
@@ -77,7 +77,6 @@ export interface Photo_AdminPanelLifeCycle {
   internal_id?: string;
   iso?: number;
   aperture?: number;
-  shutter_speed?: string;
   focal_length?: number;
   camera_body?: string;
   camera_lens?: string;
@@ -85,4 +84,5 @@ export interface Photo_AdminPanelLifeCycle {
   last_modified?: Date;
   taken?: Date;
   metering_mode?: string;
+  shutter_speed?: number;
 }

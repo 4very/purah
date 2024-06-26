@@ -50,10 +50,6 @@
     "aperture": {
       "type": "decimal"
     },
-    "shutter_speed": {
-      "type": "string",
-      "regex": "^1\\/\\d+|\\d+\"?$"
-    },
     "focal_length": {
       "type": "integer"
     },
@@ -74,6 +70,9 @@
     },
     "metering_mode": {
       "type": "string"
+    },
+    "shutter_speed": {
+      "type": "decimal"
     }
   }
 }

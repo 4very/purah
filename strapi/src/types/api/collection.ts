@@ -10,6 +10,7 @@ export interface Collection {
     createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    photos?: { data: Photo[] };
     title: string;
     slug?: string;
+    color?: any;
   };
 }
 export interface Collection_Plain {
@@ -17,6 +18,7 @@ export interface Collection_Plain {
   createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  photos?: Photo_Plain[];
   title: string;
   slug?: string;
+  color?: any;
 }
 
 export interface Collection_NoRelations {
@@ -24,6 +26,7 @@ export interface Collection_NoRelations {
   createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  photos?: number[];
   title: string;
   slug?: string;
+  color?: any;
 }
 
 export interface Collection_AdminPanelLifeCycle {
@@ -31,4 +34,5 @@ export interface Collection_AdminPanelLifeCycle {
   createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  photos?: AdminPanelRelationPropertyModification<Photo_Plain>;
   title: string;
   slug?: string;
+  color?: any;
 }

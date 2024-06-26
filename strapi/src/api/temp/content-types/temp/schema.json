@@ -35,6 +35,13 @@
     },
     "taken": {
       "type": "datetime"
+    },
+    "zone": {
+      "type": "dynamiczone",
+      "components": [
+        "gallery.filter",
+        "gallery.tag"
+      ]
     }
   }
 }

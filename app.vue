@@ -1,3 +1,5 @@
+<script lang="ts" setup></script>
+
 <template>
   <div>
     <NuxtLayout>
@@ -5,3 +7,7 @@
     </NuxtLayout>
   </div>
 </template>
+
+<style lang="postcss">
+@import './assets/index.css';
+</style>

@@ -1,0 +1,91 @@
+@import './_colors.css';
+@import './gallery.css';
+@import './photo.css';
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+
+body {
+  background-color: $background;
+  margin: 0;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: $text;
+}
+
+button,
+input[type='submit'],
+input[type='reset'],
+input.search {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input {
+  font-style: none;
+  font-variant-ligatures: none;
+  font-variant-caps: none;
+  font-variant-numeric: none;
+  font-variant-east-asian: none;
+  font-variant-alternates: none;
+  font-variant-position: none;
+  font-weight: none;
+  font-stretch: none;
+  font-size: none;
+  font-family: none;
+  font-optical-sizing: none;
+  font-kerning: none;
+  font-feature-settings: none;
+  font-variation-settings: none;
+  text-rendering: auto;
+  color: fieldtext;
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  appearance: auto;
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  background-color: field;
+  margin: 0em;
+  padding: 1px 0px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+  border-image: initial;
+  padding-block: 1px;
+  padding-inline: 2px;
+}
+
+div {
+  display: block;
+  unicode-bidi: isolate;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+a {
+  text-decoration: underline;
+
+  &:visited {
+    color: inherit;
+  }
+}
+
+h1 {
+  font-size: 2.25rem;
+}

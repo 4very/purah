@@ -12,6 +12,7 @@ export interface Temp {
     exif?: any;
     iso?: number;
     taken?: Date;
+    zone?: any;
   };
 }
 export interface Temp_Plain {
@@ -21,6 +22,7 @@ export interface Temp_Plain {
   exif?: any;
   iso?: number;
   taken?: Date;
+  zone?: any;
 }
 
 export interface Temp_NoRelations {
@@ -30,6 +32,7 @@ export interface Temp_NoRelations {
   exif?: any;
   iso?: number;
   taken?: Date;
+  zone?: any;
 }
 
 export interface Temp_AdminPanelLifeCycle {
@@ -39,4 +42,5 @@ export interface Temp_AdminPanelLifeCycle {
   exif?: any;
   iso?: number;
   taken?: Date;
+  zone?: any;
 }

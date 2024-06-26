@@ -1,0 +1,66 @@
+$photo_bump_height: 3rem;
+
+#art_page {
+  width: 100%;
+}
+
+section#art_main {
+  height: calc(100vh - ($photo_bump_height * 2));
+  padding-top: 3.125rem;
+  padding-bottom: 2.5rem;
+  padding-left: 85px;
+  padding-right: 85px;
+}
+
+#art_image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  & > img {
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+  }
+}
+
+#photo_collection,
+#art_return {
+  height: $photo_bump_height;
+  padding: 2.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+#collection_nav,
+#art_return > a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  & svg,
+  & a {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+#collection_link {
+  display: flex;
+  align-items: center;
+}
+
+#photo_info {
+  padding: 2.5rem;
+}
+
+#art_return > a {
+  gap: 0.5rem;
+  text-decoration: none;
+  & > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
