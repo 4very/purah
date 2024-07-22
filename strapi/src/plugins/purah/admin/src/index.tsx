@@ -5,6 +5,8 @@ import pluginId from './pluginId'
 import Initializer from './components/Initializer'
 import PluginIcon from './components/PluginIcon'
 import EXIFIcon from './components/EXIF/icon'
+import PhotoKeyIcon from './components/PhotoKey/icon'
+import FilterSelect from './components/FilterSelect/icon'
 
 const name = pluginPkg.strapi.name
 
@@ -56,6 +58,54 @@ export default {
         Input: async () =>
           import(
             /* webpackChunkName: "input-component" */ './components/EXIF/index'
+          ),
+      },
+      options: {
+        // declare options here
+      },
+    })
+
+    app.customFields.register({
+      name: 'PhotoKey',
+      pluginId: 'purah', // the custom field is created by a color-picker plugin
+      type: 'string', // the color will be stored as a string
+      intlLabel: {
+        id: 'color-picker.color.label',
+        defaultMessage: 'Photo Key',
+      },
+      intlDescription: {
+        id: 'color-picker.color.description',
+        defaultMessage: '',
+      },
+      icon: PhotoKeyIcon, // don't forget to create/import your icon component
+      components: {
+        Input: async () =>
+          import(
+            /* webpackChunkName: "input-component" */ './components/PhotoKey/index'
+          ),
+      },
+      options: {
+        // declare options here
+      },
+    })
+
+    app.customFields.register({
+      name: 'FilterSelect',
+      pluginId: 'purah', // the custom field is created by a color-picker plugin
+      type: 'json', // the color will be stored as a string
+      intlLabel: {
+        id: 'color-picker.color.label',
+        defaultMessage: 'Filter Select',
+      },
+      intlDescription: {
+        id: 'color-picker.color.description',
+        defaultMessage: '',
+      },
+      icon: FilterSelect, // don't forget to create/import your icon component
+      components: {
+        Input: async () =>
+          import(
+            /* webpackChunkName: "input-component" */ './components/FilterSelect/index'
           ),
       },
       options: {

@@ -13,6 +13,8 @@ export interface Temp {
     iso?: number;
     taken?: Date;
     zone?: any;
+    key?: any;
+    filters?: any;
   };
 }
 export interface Temp_Plain {
@@ -23,6 +25,8 @@ export interface Temp_Plain {
   iso?: number;
   taken?: Date;
   zone?: any;
+  key?: any;
+  filters?: any;
 }
 
 export interface Temp_NoRelations {
@@ -33,6 +37,8 @@ export interface Temp_NoRelations {
   iso?: number;
   taken?: Date;
   zone?: any;
+  key?: any;
+  filters?: any;
 }
 
 export interface Temp_AdminPanelLifeCycle {
@@ -43,4 +49,6 @@ export interface Temp_AdminPanelLifeCycle {
   iso?: number;
   taken?: Date;
   zone?: any;
+  key?: any;
+  filters?: any;
 }

@@ -8,6 +8,7 @@ import {
 } from '@heroicons/vue/24/outline'
 
 const divisions = defineModel('divisions')
+const filtersOpen = defineModel('filtersOpen')
 </script>
 
 <template>
@@ -51,7 +52,7 @@ const divisions = defineModel('divisions')
         </div>
       </div>
       <div id="gallery-filter">
-        <button>
+        <button @click="filtersOpen = !filtersOpen">
           Filter
           <ChevronDownIcon />
         </button>

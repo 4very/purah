@@ -11,13 +11,21 @@
       "type": "string",
       "required": true
     },
-    "data": {
-      "type": "json"
+    "key": {
+      "type": "customField",
+      "customField": "plugin::purah.PhotoKey"
     },
-    "tags": {
-      "type": "component",
-      "repeatable": true,
-      "component": "gallery.tag"
+    "filters": {
+      "type": "customField",
+      "customField": "plugin::purah.FilterSelect"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "date",
+        "text",
+        "shutter_speed"
+      ]
     }
   }
 }

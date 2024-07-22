@@ -23,8 +23,6 @@ const photo = await findOne('photos', id, {
 
 const color = photo.data.attributes.color ?? '$background'
 const collections = photo.data.attributes.collections?.data
-
-console.log(photo.data.attributes)
 </script>
 
 <template>

@@ -8,12 +8,18 @@ import {
   Field,
   IconButton,
   FieldError,
+  Accordion,
+  AccordionContent,
+  AccordionToggle,
 } from '@strapi/design-system'
+
 import { Spark } from '@strapi/icons'
 import { parse } from 'exifr'
 import mapping from './mapping'
 
 const EXIF = React.forwardRef((props, ref) => {
+  const { Item } = Accordion
+  console.log(Accordion)
   // @ts-ignore
   const { attribute, disabled, intlLabel, name, onChange, required, value } =
     props // these are just some of the props passed by the content-manager
@@ -55,19 +61,41 @@ const EXIF = React.forwardRef((props, ref) => {
       })
     })
   }
+  const [expanded, setExpanded] = React.useState(false)
 
   return (
     <Field name="EXIF">
-      <FieldLabel>{formatMessage(intlLabel)} </FieldLabel>
-      <JSONInput
-        ref={ref}
-        name={name}
-        disabled={disabled}
-        value={value}
-        required={required}
-        onChange={handleChange}
-      />
-      <FieldError />
+      {/* <FieldLabel>{formatMessage(intlLabel)} </FieldLabel> */}
+      <Accordion
+        variant="primary"
+        expanded={expanded}
+        onToggle={() => setExpanded((s) => !s)}
+        id="acc-1"
+        size="S"
+      >
+        <AccordionToggle title="EXIF">
+          <IconButton
+            label="Regenerate"
+            size="S"
+            variant="secondary"
+            onClick={update_exif}
+          >
+            <Spark />
+          </IconButton>
+        </AccordionToggle>
+        <AccordionContent>
+          <JSONInput
+            ref={ref}
+            name={name}
+            disabled={disabled}
+            value={value}
+            required={required}
+            onChange={handleChange}
+          />
+          <FieldError />
+        </AccordionContent>
+      </Accordion>
+
       <IconButton
         label="Regenerate"
         size="S"

@@ -42,6 +42,14 @@
         "gallery.filter",
         "gallery.tag"
       ]
+    },
+    "key": {
+      "type": "customField",
+      "customField": "plugin::purah.PhotoKey"
+    },
+    "filters": {
+      "type": "customField",
+      "customField": "plugin::purah.FilterSelect"
     }
   }
 }

@@ -11,4 +11,26 @@ export default ({ strapi }: { strapi: Strapi }) => {
       isResizable: true,
     },
   })
+
+  strapi.customFields.register({
+    name: 'PhotoKey',
+    plugin: 'purah',
+    type: 'string',
+    inputSize: {
+      // optional
+      default: 12,
+      isResizable: true,
+    },
+  })
+
+  strapi.customFields.register({
+    name: 'FilterSelect',
+    plugin: 'purah',
+    type: 'json',
+    inputSize: {
+      // optional
+      default: 12,
+      isResizable: true,
+    },
+  })
 }

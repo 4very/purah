@@ -1,7 +1,7 @@
 @import './_colors.css';
 @import './gallery.css';
 @import './photo.css';
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap');
 
 body {
   background-color: $background;
