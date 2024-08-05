@@ -2,7 +2,10 @@
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/strapi', '@nuxt/image'],
+  modules: ['@nuxtjs/strapi', '@nuxt/image', '@nuxt/test-utils/module'],
+  devServer: {
+    port: 3000,
+  },
   runtimeConfig: {
     strapi: {
       url: 'http://localhost:1337',
