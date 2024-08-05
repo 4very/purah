@@ -23,6 +23,7 @@ const photo = await findOne('photos', id, {
 
 const color = photo.data.attributes.color ?? '$background'
 const collections = photo.data.attributes.collections?.data
+console.log(collections)
 </script>
 
 <template>
@@ -38,7 +39,7 @@ const collections = photo.data.attributes.collections?.data
       </div>
     </section>
     <PhotoCollectionBump
-      v-if="collections"
+      v-if="collections && collections.length"
       :photo_id="id"
       :collection="collections"
     ></PhotoCollectionBump>

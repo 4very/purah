@@ -9,11 +9,15 @@ const props = defineProps<{
   title: string
   total: number
   values: [string, number][]
+  type?: string
 }>()
 
 const collapsed = ref(false)
 const expanded = ref(false)
 const search = ref('')
+
+if (props.type && props.type === 'date') {
+}
 </script>
 
 <template>
@@ -41,7 +45,9 @@ const search = ref('')
           id="filter-item"
         >
           <input type="checkbox" />
-          <span id="title">{{ val }}</span>
+          <span id="title">{{
+            type === 'date' ? new Date(val).toLocaleDateString() : val
+          }}</span>
           <span id="total">{{ num }}</span>
         </li>
       </ul>

@@ -24,7 +24,8 @@
       "enum": [
         "date",
         "text",
-        "shutter_speed"
+        "shutter_speed",
+        "collection"
       ]
     }
   }

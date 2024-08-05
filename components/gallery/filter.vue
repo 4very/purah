@@ -16,6 +16,7 @@ console.log(props.filters)
       :title="filter.name"
       :total="filter.filters.sum"
       :values="filter.filters.values"
+      :type="filter.type"
     >
     </GalleryFilterBlock>
   </div>

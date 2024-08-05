@@ -23,7 +23,7 @@
     "filters": {
       "type": "component",
       "repeatable": true,
-      "max": 6,
+      "max": 7,
       "component": "gallery.filter"
     }
   }

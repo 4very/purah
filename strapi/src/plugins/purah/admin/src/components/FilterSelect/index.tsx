@@ -37,16 +37,23 @@ const FilterSelect = React.forwardRef((props, ref) => {
 
   const { get } = getFetchClient()
 
-  const updateValues = () =>
-    get(`/content-manager/collection-types/api::photo.photo?fields[0]=${key}`)
+  const updateValues = () => {
+    get(`/content-manager/collection-types/api::photo.photo?populate=*`)
       .then((r: any) => r.data.results.map((d: any) => d[key]))
       .then((d: any[]) =>
         d.reduce(
           (a, cv) => {
-            a.sum++
-            const key = String(cv ?? 'None')
-            if (key in a.values) a.values[key]++
-            else a.values[key] = 1
+            let val
+            if (key === 'collections') val = cv.map((v: any) => v.title)
+            else val = [cv]
+
+            val.forEach((v: any) => {
+              a.sum++
+              const elt = String(v ?? 'None')
+              if (v in a.values) a.values[v]++
+              else a.values[v] = 1
+            })
+
             return a
           },
           { values: {}, sum: 0 }
@@ -55,6 +62,7 @@ const FilterSelect = React.forwardRef((props, ref) => {
       .then((d: any) =>
         change({ sum: d.sum, values: Object.entries(d.values) })
       )
+  }
 
   return (
     <Field name="PhotoKey">

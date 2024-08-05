@@ -3,7 +3,8 @@
 export enum Type {
   Date = 'date',
   Text = 'text',
-  ShutterSpeed = 'shutter_speed',}
+  ShutterSpeed = 'shutter_speed',
+  Collection = 'collection',}
 
 export interface Filter {
   name: string;
