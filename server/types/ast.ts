@@ -14,13 +14,13 @@ export interface Search extends Stmt {
 export interface Expr extends Stmt {}
 
 export interface SearchExpr extends Expr {
-  type: 'SearchExpr'
+  kind: 'SearchExpr'
   left: StringLiteral | undefined
   right: StringLiteral | SearchExpr
   opr: string
 }
 
 export interface StringLiteral extends Expr {
-  type: 'StringLiteral'
+  kind: 'StringLiteral'
   value: string
 }

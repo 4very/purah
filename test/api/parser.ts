@@ -410,9 +410,82 @@ export const TESTS: [string, any][] = [
       ],
     },
   ],
+  [
+    'key:value(value2)',
+    {
+      kind: 'Search',
+      body: [
+        {
+          kind: 'SearchExpr',
+          left: {
+            kind: 'StringLiteral',
+            value: 'key',
+          },
+          right: {
+            kind: 'StringLiteral',
+            value: 'value',
+          },
+          opr: ':',
+        },
+        {
+          kind: 'StringLiteral',
+          value: 'value2',
+        },
+      ],
+    },
+  ],
+  [
+    '(value2)key:value',
+    {
+      kind: 'Search',
+      body: [
+        {
+          kind: 'StringLiteral',
+          value: 'value2',
+        },
+        {
+          kind: 'SearchExpr',
+          left: {
+            kind: 'StringLiteral',
+            value: 'key',
+          },
+          right: {
+            kind: 'StringLiteral',
+            value: 'value',
+          },
+          opr: ':',
+        },
+      ],
+    },
+  ],
+  [
+    'key:value:',
+    {
+      kind: 'Search',
+      body: [
+        {
+          kind: 'SearchExpr',
+          left: {
+            kind: 'StringLiteral',
+            value: 'key',
+          },
+          right: {
+            kind: 'SearchExpr',
+            left: {
+              kind: 'StringLiteral',
+              value: 'value',
+            },
+            opr: ':',
+          },
+          opr: ':',
+        },
+      ],
+    },
+  ],
 ]
 
 export const ERRORS: [string, string][] = [
   ['value!', ParserError.UnknownToken],
   ['(no closing paren', ParserError.NoClosingParen],
+  [':value', ParserError.UnknownToken],
 ]

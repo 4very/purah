@@ -1,7 +1,7 @@
 import { TokenType, Token } from '../types/lexer'
 
 function isStringChar(char: string): boolean {
-  return /^[A-Za-z0-9]$/.test(char)
+  return /^[A-Za-z0-9_]$/.test(char)
 }
 
 function token(value: string = '', type: TokenType): Token {
