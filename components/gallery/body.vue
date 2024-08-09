@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { Photo } from '~/strapi/src/types/api/photo'
 
+const config = useRuntimeConfig()
+
 const props = defineProps<{
   photos: Photo[]
   divisions: number
@@ -19,7 +21,7 @@ const divisions = computed(() => 7 - props.divisions)
       >
         <NuxtLink :to="`/photo/${photo.id}`">
           <img
-            :src="`http://localhost:1337${photo.attributes.photo.data.attributes.formats.medium.url}`"
+            :src="`http://192.168.0.102:1337${photo.attributes.photo.data.attributes.formats.medium.url}`"
           />
         </NuxtLink>
       </div>

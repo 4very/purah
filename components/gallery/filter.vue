@@ -5,7 +5,7 @@ const props = defineProps<{
   filters: Filter[]
 }>()
 
-console.log(props.filters)
+// console.log(props.filters)
 </script>
 
 <template>

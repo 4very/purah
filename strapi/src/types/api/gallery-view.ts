@@ -13,6 +13,7 @@ export interface GalleryView {
     createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    title?: string;
     photos: { data: Photo[] };
     filters: Filter[];
+    quick_search?: boolean;
   };
 }
 export interface GalleryView_Plain {
@@ -20,6 +21,7 @@ export interface GalleryView_Plain {
   createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title?: string;
   photos: Photo_Plain[];
   filters: Filter_Plain[];
+  quick_search?: boolean;
 }
 
 export interface GalleryView_NoRelations {
@@ -27,6 +29,7 @@ export interface GalleryView_NoRelations {
   createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title?: string;
   photos: number[];
   filters: Filter_NoRelations[];
+  quick_search?: boolean;
 }
 
 export interface GalleryView_AdminPanelLifeCycle {
@@ -34,4 +37,5 @@ export interface GalleryView_AdminPanelLifeCycle {
   createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title?: string;
   photos: AdminPanelRelationPropertyModification<Photo_Plain>;
   filters: Filter_Plain[];
+  quick_search?: boolean;
 }

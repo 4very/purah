@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     strapi: {
-      url: 'http://localhost:1337',
+      url: 'http://192.168.0.102:1337',
     },
   },
   // css: ['./assets/index.scss'],

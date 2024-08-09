@@ -21,13 +21,9 @@ export const TESTS: [string, any][] = [
       filters: {
         $and: [
           {
-            $or: [
-              {
-                iso: {
-                  $contains: 'value',
-                },
-              },
-            ],
+            iso: {
+              $contains: 'value',
+            },
           },
         ],
       },
@@ -95,13 +91,9 @@ export const TESTS: [string, any][] = [
       filters: {
         $and: [
           {
-            $or: [
-              {
-                shutter_speed: {
-                  $contains: 'value',
-                },
-              },
-            ],
+            shutter_speed: {
+              $contains: 'value',
+            },
           },
         ],
       },
@@ -113,13 +105,9 @@ export const TESTS: [string, any][] = [
       filters: {
         $and: [
           {
-            $or: [
-              {
-                iso: {
-                  $contains: 'value',
-                },
-              },
-            ],
+            iso: {
+              $contains: 'value',
+            },
           },
         ],
       },
@@ -131,13 +119,23 @@ export const TESTS: [string, any][] = [
       filters: {
         $and: [
           {
-            $or: [
-              {
-                title: {
-                  $contains: 'value',
-                },
-              },
-            ],
+            title: {
+              $contains: 'value',
+            },
+          },
+        ],
+      },
+    },
+  ],
+  [
+    'iso:',
+    {
+      filters: {
+        $and: [
+          {
+            iso: {
+              $notNull: true,
+            },
           },
         ],
       },

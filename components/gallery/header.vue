@@ -8,22 +8,44 @@ import {
 } from '@heroicons/vue/24/outline'
 
 const divisions = defineModel('divisions')
-const filtersOpen = defineModel('filtersOpen')
+const filtersOpen = defineModel<boolean>('filtersOpen')
+const search = defineModel<string>('search')
+
+watch(search, (newSearch) =>
+  navigateTo({
+    path: `/gallery`,
+    query: { q: newSearch },
+  })
+)
+
+const goSearch = async () => {
+  return await navigateTo({
+    path: `/gallery`,
+    query: { q: search.value },
+  })
+  // navigateTo(`/gallery?q=${search.value}`)
+}
 </script>
 
 <template>
   <section id="gallery-header">
     <div id="gallery-inner">
       <div id="gallery-search">
-        <form>
+        <form @submit.prevent="goSearch">
           <div id="search-bar">
             <input
               class="search"
               placeholder="Search photographs"
+              v-model="search"
             />
             <button><XMarkIcon /></button>
           </div>
-          <button id="search-submit"><MagnifyingGlassIcon /></button>
+          <button
+            id="search-submit"
+            type="submit"
+          >
+            <MagnifyingGlassIcon />
+          </button>
         </form>
       </div>
       <div id="gallery-slider">

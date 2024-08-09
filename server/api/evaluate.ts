@@ -20,7 +20,7 @@ const DEFAULT_KEY: StringLiteral = {
 const lookup_table: Record<string, string[]> = {
   title: ['t'],
   iso: [],
-  aperture: [],
+  aperture: ['a'],
   shutter_speed: ['shutter'],
   focal_length: ['mm'],
   camera_body: ['body', 'camera'],
@@ -39,13 +39,17 @@ function transform_key(str: string) {
   return str.toLowerCase().replace(' ', '_')
 }
 
-function eval_StringLiteral(
-  str: StringLiteral,
-  keyStr: StringLiteral = DEFAULT_KEY
-): filter {
-  const trans_key = transform_key(keyStr.value)
-  let key: string = trans_key
-  if (trans_key in reverse_lookup_table) key = reverse_lookup_table[trans_key]
+function build_filter(key: string, filter: string, value: any): filter {
+  return { [key]: { [filter]: value } }
+}
+
+function wrap_filter(filter: filter | filter[]): or_filter | filter {
+  return Array.isArray(filter) ? { $or: filter } : filter
+}
+
+function use_key(raw_key: string): string {
+  const trans_key = transform_key(raw_key)
+  if (trans_key in reverse_lookup_table) return reverse_lookup_table[trans_key]
   else {
     if (!(trans_key in lookup_table))
       throw createError({
@@ -54,31 +58,43 @@ function eval_StringLiteral(
         data: trans_key,
       })
   }
-
-  key =
-    trans_key in reverse_lookup_table
-      ? reverse_lookup_table[trans_key]
-      : trans_key
-  return { [key]: { $contains: str.value } }
+  return trans_key
 }
 
-function eval_SearchExpr(expr: SearchExpr): filter[] {
+function eval_StringLiteral(
+  str: StringLiteral,
+  keyStr: StringLiteral = DEFAULT_KEY
+): filter {
+  const key = use_key(keyStr.value)
+  return build_filter(key, '$contains', str.value)
+}
+
+function eval_unpairedKey(str: StringLiteral): filter {
+  const key = use_key(str.value)
+  return { [key]: { $notNull: true } }
+}
+
+function eval_SearchExpr(expr: SearchExpr): filter | filter[] {
+  if (expr.right === undefined)
+    return eval_unpairedKey(expr.left as StringLiteral)
   if (expr.right.kind == 'StringLiteral')
-    return [eval_StringLiteral(expr.right, expr.left)]
-  return [
-    ...eval_SearchExpr({
-      kind: 'SearchExpr',
-      left: expr.left,
-      right: expr.right.left as StringLiteral | SearchExpr,
-      opr: expr.right.opr,
-    }),
-    ...eval_SearchExpr({
-      kind: 'SearchExpr',
-      left: expr.left,
-      right: expr.right.right,
-      opr: expr.right.opr,
-    }),
-  ]
+    return eval_StringLiteral(expr.right, expr.left)
+
+  const rl = eval_SearchExpr({
+    kind: 'SearchExpr',
+    left: expr.left,
+    right: expr.right.left as StringLiteral | SearchExpr,
+    opr: expr.right.opr,
+  })
+
+  const rr = eval_SearchExpr({
+    kind: 'SearchExpr',
+    left: expr.left,
+    right: expr.right.right,
+    opr: expr.right.opr,
+  })
+
+  return [rl, rr].flat()
 }
 
 function eval_expr(expr: Expr): filter | or_filter {
@@ -86,7 +102,7 @@ function eval_expr(expr: Expr): filter | or_filter {
     case 'StringLiteral':
       return eval_StringLiteral(expr as StringLiteral)
     case 'SearchExpr':
-      return { $or: eval_SearchExpr(expr as SearchExpr) }
+      return wrap_filter(eval_SearchExpr(expr as SearchExpr))
   }
 
   return {}

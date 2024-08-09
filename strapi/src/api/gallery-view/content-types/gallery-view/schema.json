@@ -25,6 +25,10 @@
       "repeatable": true,
       "max": 7,
       "component": "gallery.filter"
+    },
+    "quick_search": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
