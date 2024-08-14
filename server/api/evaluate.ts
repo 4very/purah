@@ -29,11 +29,13 @@ const lookup_table: Record<string, string[]> = {
   last_modified: [],
   taken: ['taken_at'],
   metering_mode: ['focus_mode'],
-  collections: ['collection', 'c'],
+  collections: ['collection', 'c_title', 'collection_title', 'c'],
+  slug: ['c_slug', 'collection_slug', 'collections_slug'],
 }
 
 const relation_searches: Record<string, string[]> = {
-  collections: ['title'],
+  collections: ['collections', 'title'],
+  slug: ['collections', 'slug'],
 }
 
 const reverse_lookup_table = Object.fromEntries(
@@ -46,10 +48,10 @@ function transform_key(str: string) {
 
 function build_filter(key: string, ope: string, value: any): filter {
   let filter = { [ope]: value }
-  if (key in relation_searches) {
-    for (let v of relation_searches[key].reverse()) filter = { [v]: filter }
-  }
-  return { [key]: filter }
+  if (key in relation_searches)
+    for (let v of relation_searches[key].toReversed()) filter = { [v]: filter }
+  else filter = { [key]: filter }
+  return filter
 }
 
 function wrap_filter(filter: filter | filter[]): or_filter | filter {
@@ -80,7 +82,7 @@ function eval_StringLiteral(
 
 function eval_unpairedKey(str: StringLiteral): filter {
   const key = use_key(str.value)
-  return { [key]: { $notNull: true } }
+  return build_filter(key, '$notNull', true)
 }
 
 function eval_SearchExpr(expr: SearchExpr): filter | filter[] {

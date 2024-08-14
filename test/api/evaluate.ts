@@ -157,6 +157,22 @@ export const TESTS: [string, any][] = [
       },
     },
   ],
+  [
+    'collection:',
+    {
+      filters: {
+        $and: [
+          {
+            collections: {
+              title: {
+                $notNull: true,
+              },
+            },
+          },
+        ],
+      },
+    },
+  ],
 ]
 
 export const ERRORS: [string, string][] = [
