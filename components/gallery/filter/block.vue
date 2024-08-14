@@ -18,6 +18,17 @@ const search = ref('')
 
 if (props.type && props.type === 'date') {
 }
+
+// const checked = reactive(
+//   Object.fromEntries(props.values.map(([val]) => [val, ref(false)]))
+// )
+const checked = ref(new Set())
+
+watch(checked, (c) => console.log(c))
+const f = (v: string, e: any) => {
+  if (e.target.checked) checked.value.add(v)
+  else checked.value.delete(v)
+}
 </script>
 
 <template>
@@ -44,7 +55,10 @@ if (props.type && props.type === 'date') {
           :key="val"
           id="filter-item"
         >
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            @change="f(val, $event)"
+          />
           <span id="title">{{
             type === 'date' ? new Date(val).toLocaleDateString() : val
           }}</span>

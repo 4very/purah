@@ -16,6 +16,11 @@ const collection = (
     },
   })
 ).data[0]
+
+await navigateTo({
+  path: `/gallery`,
+  query: { q: `collection:(${collection.attributes.title})` },
+})
 </script>
 
 <template>
