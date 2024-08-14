@@ -29,6 +29,11 @@ const lookup_table: Record<string, string[]> = {
   last_modified: [],
   taken: ['taken_at'],
   metering_mode: ['focus_mode'],
+  collections: ['collection', 'c'],
+}
+
+const relation_searches: Record<string, string[]> = {
+  collections: ['title'],
 }
 
 const reverse_lookup_table = Object.fromEntries(
@@ -39,8 +44,12 @@ function transform_key(str: string) {
   return str.toLowerCase().replace(' ', '_')
 }
 
-function build_filter(key: string, filter: string, value: any): filter {
-  return { [key]: { [filter]: value } }
+function build_filter(key: string, ope: string, value: any): filter {
+  let filter = { [ope]: value }
+  if (key in relation_searches) {
+    for (let v of relation_searches[key].reverse()) filter = { [v]: filter }
+  }
+  return { [key]: filter }
 }
 
 function wrap_filter(filter: filter | filter[]): or_filter | filter {

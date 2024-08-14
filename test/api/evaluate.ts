@@ -141,6 +141,22 @@ export const TESTS: [string, any][] = [
       },
     },
   ],
+  [
+    'collection:value',
+    {
+      filters: {
+        $and: [
+          {
+            collections: {
+              title: {
+                $contains: 'value',
+              },
+            },
+          },
+        ],
+      },
+    },
+  ],
 ]
 
 export const ERRORS: [string, string][] = [
