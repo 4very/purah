@@ -91,6 +91,8 @@ export class Parser {
             value: (exprs as StringLiteral[]).map((e) => e.value).join(' '),
           } as StringLiteral
         else return exprs[0]
+      case TokenType.CloseParen:
+        this.throw(ParserError.UnexpectedClosingParen, this.at())
 
       default:
         this.throw(ParserError.UnknownToken, this.at())

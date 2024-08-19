@@ -65,6 +65,15 @@ const tests: [string, Token[]][] = [
       { type: TokenType.EOF, value: 'EOF' },
     ],
   ],
+  [
+    'key:!value',
+    [
+      { type: TokenType.String, value: 'key' },
+      { type: TokenType.Pairing, value: ':!' },
+      { type: TokenType.String, value: 'value' },
+      { type: TokenType.EOF, value: 'EOF' },
+    ],
+  ],
 ]
 
 export default tests

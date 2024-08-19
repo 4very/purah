@@ -485,7 +485,10 @@ export const TESTS: [string, any][] = [
 ]
 
 export const ERRORS: [string, string][] = [
-  ['value!', ParserError.UnknownToken],
-  ['(no closing paren', ParserError.NoClosingParen],
+  ['value|', ParserError.UnknownToken],
+  ['(value', ParserError.NoClosingParen],
+  ['((value)', ParserError.NoClosingParen],
   [':value', ParserError.UnknownToken],
+  ['value)', ParserError.UnexpectedClosingParen],
+  ['(value))', ParserError.UnexpectedClosingParen],
 ]
