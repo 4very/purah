@@ -38,6 +38,8 @@ const relation_searches: Record<string, string[]> = {
   slug: ['collections', 'slug'],
 }
 
+const key_groups: Record<string, filter[]> = {}
+
 const reverse_lookup_table = Object.fromEntries(
   Object.entries(lookup_table).flatMap(([e, vs]) => vs.map((v) => [v, e]))
 )

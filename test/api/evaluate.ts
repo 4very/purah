@@ -53,6 +53,29 @@ export const TESTS: [string, any][] = [
     },
   ],
   [
+    'iso:value1 iso:value2',
+    {
+      filters: {
+        $and: [
+          {
+            $or: [
+              {
+                iso: {
+                  $contains: 'value1',
+                },
+              },
+              {
+                iso: {
+                  $contains: 'value2',
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+  [
     'iso:value1:value2:value3:value4',
     {
       filters: {

@@ -16,29 +16,25 @@ const collapsed = ref(false)
 const expanded = ref(false)
 const search = ref('')
 
+const [checked] = defineModel<string[]>('checked', { default: [] })
+
 if (props.type && props.type === 'date') {
 }
 
-// const checked = reactive(
-//   Object.fromEntries(props.values.map(([val]) => [val, ref(false)]))
-// )
-const checked = ref(new Set())
-
-watch(checked, (c) => console.log(c))
 const f = (v: string, e: any) => {
-  if (e.target.checked) checked.value.add(v)
-  else checked.value.delete(v)
+  if (e.target.checked) checked.value.push(v)
+  else checked.value.splice(checked.value.indexOf(v), 1)
 }
 </script>
 
 <template>
-  <div id="filter">
+  <div id="gallery-filter">
     <button
-      id="filter-header"
+      id="gallery-filter-header"
       @click="collapsed = !collapsed"
     >
-      <span id="title">{{ title }}</span>
-      <span id="total">{{ total }}</span>
+      <span id="gallery-filter-title">{{ title }}</span>
+      <span id="gallery-filter-total">{{ total }}</span>
       <ChevronDownIcon
         :style="{
           transform: `rotate(${collapsed ? '180' : '0'}deg)`,
@@ -46,31 +42,31 @@ const f = (v: string, e: any) => {
       />
     </button>
     <div
-      id="filter-items"
+      id="gallery-filter-items"
       v-if="!collapsed"
     >
-      <ul id="filter-list">
+      <ul id="gallery-filter-list">
         <li
           v-for="([val, num], i) in values.slice(0, expanded ? undefined : 3)"
           :key="val"
-          id="filter-item"
+          id="gallery-filter-item"
         >
           <input
             type="checkbox"
             @change="f(val, $event)"
           />
-          <span id="title">{{
+          <span id="gallery-filter-title">{{
             type === 'date' ? new Date(val).toLocaleDateString() : val
           }}</span>
-          <span id="total">{{ num }}</span>
+          <span id="gallery-filter-total">{{ num }}</span>
         </li>
       </ul>
     </div>
     <button
-      id="filter-header"
+      id="gallery-filter-header"
       @click="expanded = !expanded"
     >
-      <span id="title">Show All</span>
+      <span id="gallery-filter-title">Show All</span>
       <ArrowDownIcon
         :style="{
           transform: `rotate(${expanded ? '180' : '0'}deg)`,

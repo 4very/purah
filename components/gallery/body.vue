@@ -1,27 +1,34 @@
 <script setup lang="ts">
 import type { Photo } from '~/strapi/src/types/api/photo'
 
-const config = useRuntimeConfig()
+const strapiUrl = useStrapiUrl()
+console.log(strapiUrl)
 
 const props = defineProps<{
   photos: Photo[]
   divisions: number
 }>()
 
+const media = useStrapiMedia(
+  props.photos[0].attributes.photo.data.attributes.formats.medium.url
+)
+console.log(media)
+
 const divisions = computed(() => 7 - props.divisions)
 </script>
 
 <template>
   <section id="gallery-body">
-    <div id="gallery-flex">
+    <div id="gallery-photo-grid">
       <div
         v-for="photo in photos"
         :key="photo.id"
-        id="gallery-item"
+        id="gallery-grid-item"
       >
         <NuxtLink :to="`/photo/${photo.id}`">
-          <img
-            :src="`http://192.168.0.102:1337${photo.attributes.photo.data.attributes.formats.medium.url}`"
+          <NuxtImg
+            provider="strapi"
+            :src="photo.attributes.photo.data.attributes.formats.medium.url"
           />
         </NuxtLink>
       </div>
@@ -30,11 +37,11 @@ const divisions = computed(() => 7 - props.divisions)
 </template>
 
 <style lang="postcss">
-#gallery-flex {
+#gallery-photo-grid {
   grid-template-columns: repeat(v-bind(divisions), 1fr);
 }
 
-#gallery-item {
-  --hover-scale: calc(0.015 * (5 * v-bind(divisions) + 64));
+#gallery-grid-item {
+  --hover-scale: calc(0.015 * (4 * v-bind(divisions) + 64));
 }
 </style>

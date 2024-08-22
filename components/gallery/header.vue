@@ -29,10 +29,10 @@ const goSearch = async () => {
 
 <template>
   <section id="gallery-header">
-    <div id="gallery-inner">
-      <div id="gallery-search">
+    <div id="gallery-header-inner">
+      <div id="gallery-header-search">
         <form @submit.prevent="goSearch">
-          <div id="search-bar">
+          <div id="gallery-header-search-input">
             <input
               class="search"
               placeholder="Search photographs"
@@ -41,39 +41,37 @@ const goSearch = async () => {
             <button><XMarkIcon /></button>
           </div>
           <button
-            id="search-submit"
+            id="gallery-header-search-submit"
             type="submit"
           >
             <MagnifyingGlassIcon />
           </button>
         </form>
       </div>
-      <div id="gallery-slider">
-        <div id="gallery-slider-inner">
-          <button
-            type="button"
-            @click="divisions = Math.max((divisions as number) - 1, 1)"
-          >
-            <Squares2X2Icon />
-          </button>
-          <div>
-            <input
-              type="range"
-              min="1"
-              max="6"
-              id="slider"
-              v-model="divisions"
-            />
-          </div>
-          <button
-            type="button"
-            @click="divisions = Math.min((divisions as number) + 1, 7)"
-          >
-            <CodeBracketSquareIcon />
-          </button>
+      <div id="gallery-header-slider">
+        <button
+          type="button"
+          @click="divisions = Math.max((divisions as number) - 1, 1)"
+        >
+          <Squares2X2Icon />
+        </button>
+        <div>
+          <input
+            type="range"
+            min="1"
+            max="6"
+            id="slider"
+            v-model.number="divisions"
+          />
         </div>
+        <button
+          type="button"
+          @click="divisions = Math.min((divisions as number) + 1, 7)"
+        >
+          <CodeBracketSquareIcon />
+        </button>
       </div>
-      <div id="gallery-filter">
+      <div id="gallery-header-filter-toggle">
         <button @click="filtersOpen = !filtersOpen">
           Filter
           <ChevronDownIcon />

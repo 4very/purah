@@ -17,10 +17,13 @@ const gallery = await findOne('gallery-view', {
 let photos: Ref<Photo[]> = ref([])
 
 const search = ref(query.q ? (query.q as string) : '')
+const filtersOpen = ref(false)
+const divisions = ref(4)
 
 watch(
-  search,
-  async (newSearch) => {
+  [search, filtersOpen],
+  async ([newSearch, deferSearch]) => {
+    // if (deferSearch) return
     if (search.value === '') photos.value = gallery.data.attributes.photos.data
     else {
       const r = await $fetch('/api/search', {
@@ -32,10 +35,6 @@ watch(
   },
   { immediate: true }
 )
-
-const filtersOpen = ref(false)
-
-const divisions = ref(4)
 </script>
 
 <template>
@@ -48,6 +47,8 @@ const divisions = ref(4)
     <GalleryFilter
       v-show="filtersOpen"
       :filters="gallery.data.attributes.filters"
+      v-model:search="search"
+      v-model:filtersOpen="filtersOpen"
     ></GalleryFilter>
     <GalleryBody
       v-show="!filtersOpen"
