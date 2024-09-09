@@ -18,12 +18,9 @@ import { parse } from 'exifr'
 import mapping from './mapping'
 
 const EXIF = React.forwardRef((props, ref) => {
-  const { Item } = Accordion
-  console.log(Accordion)
   // @ts-ignore
   const { attribute, disabled, intlLabel, name, onChange, required, value } =
     props // these are just some of the props passed by the content-manager
-  const { formatMessage } = useIntl()
 
   const handleChange = (e: any) => {
     onChange({
@@ -36,11 +33,24 @@ const EXIF = React.forwardRef((props, ref) => {
     ...rest
   } = useCMEditViewDataManager()
 
+  const prevData = React.useRef({ value: modifiedData }).current
+
+  React.useEffect(() => {
+    // console.log(modifiedData, prevData.value)
+    const curHash = modifiedData.photo?.hash
+    const prevHash = prevData.value.photo?.hash
+
+    if (curHash && curHash !== prevHash) distribute_exif()
+
+    return () => {
+      prevData.value = modifiedData
+    }
+  }, [modifiedData])
+
   let exif: { [key: string]: any } = {}
 
   const update_exif = async () => {
     exif = await parse(modifiedData.photo.url)
-    console.log(modifiedData)
     await onChange({
       target: {
         name,
@@ -51,12 +61,13 @@ const EXIF = React.forwardRef((props, ref) => {
   }
 
   const distribute_exif = async () => {
+    if (Object.keys(exif).length === 0) await update_exif()
     mapping.forEach(async ([name, from, type]) => {
       await onChangeForm({
         target: {
           name,
           type,
-          value: exif[from],
+          value: typeof from === 'function' ? from(exif) : exif[from],
         },
       })
     })
@@ -73,17 +84,16 @@ const EXIF = React.forwardRef((props, ref) => {
         id="acc-1"
         size="S"
       >
-        <AccordionToggle title="EXIF">
+        <AccordionToggle title="EXIF"></AccordionToggle>
+        <AccordionContent>
           <IconButton
             label="Regenerate"
-            size="S"
+            size="L"
             variant="secondary"
-            onClick={update_exif}
+            onClick={distribute_exif}
           >
             <Spark />
           </IconButton>
-        </AccordionToggle>
-        <AccordionContent>
           <JSONInput
             ref={ref}
             name={name}
@@ -95,23 +105,6 @@ const EXIF = React.forwardRef((props, ref) => {
           <FieldError />
         </AccordionContent>
       </Accordion>
-
-      <IconButton
-        label="Regenerate"
-        size="S"
-        variant="secondary"
-        onClick={update_exif}
-      >
-        <Spark />
-      </IconButton>
-      <IconButton
-        label="Regenerate"
-        size="L"
-        variant="secondary"
-        onClick={distribute_exif}
-      >
-        <Spark />
-      </IconButton>
     </Field>
   )
 })

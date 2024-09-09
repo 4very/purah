@@ -9,10 +9,10 @@ const props = defineProps<{
   divisions: number
 }>()
 
-const media = useStrapiMedia(
-  props.photos[0].attributes.photo.data.attributes.formats.medium.url
-)
-console.log(media)
+// const media = useStrapiMedia(
+//   props.photos[0].attributes.photo.data.attributes.formats.medium.url
+// )
+// console.log('media', media)
 
 const divisions = computed(() => 7 - props.divisions)
 </script>

@@ -788,6 +788,242 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface PluginMenusMenu extends Schema.CollectionType {
+  collectionName: 'menus';
+  info: {
+    name: 'Menu';
+    displayName: 'Menu';
+    singularName: 'menu';
+    pluralName: 'menus';
+    tableName: 'menus';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    slug: Attribute.UID<'plugin::menus.menu', 'title'> & Attribute.Required;
+    items: Attribute.Relation<
+      'plugin::menus.menu',
+      'oneToMany',
+      'plugin::menus.menu-item'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::menus.menu',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::menus.menu',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginMenusMenuItem extends Schema.CollectionType {
+  collectionName: 'menu_items';
+  info: {
+    name: 'MenuItem';
+    displayName: 'Menu Item';
+    singularName: 'menu-item';
+    pluralName: 'menu-items';
+    tableName: 'menu_items';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    order: Attribute.Integer;
+    title: Attribute.String & Attribute.Required;
+    url: Attribute.String;
+    target: Attribute.Enumeration<['_blank', '_parent', '_self', '_top']>;
+    root_menu: Attribute.Relation<
+      'plugin::menus.menu-item',
+      'manyToOne',
+      'plugin::menus.menu'
+    > &
+      Attribute.Required;
+    parent: Attribute.Relation<
+      'plugin::menus.menu-item',
+      'oneToOne',
+      'plugin::menus.menu-item'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::menus.menu-item',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::menus.menu-item',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiBirdBird extends Schema.CollectionType {
+  collectionName: 'birds';
+  info: {
+    singularName: 'bird';
+    pluralName: 'birds';
+    displayName: 'bird';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    speciesCode: Attribute.UID;
+    comName: Attribute.String & Attribute.Required;
+    sciName: Attribute.String;
+    category: Attribute.String;
+    taxonOrder: Attribute.Decimal;
+    order: Attribute.String;
+    familyCode: Attribute.String;
+    familyComName: Attribute.String;
+    FamilySciName: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::bird.bird', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::bird.bird', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCollectionCollection extends Schema.CollectionType {
+  collectionName: 'collections';
+  info: {
+    singularName: 'collection';
+    pluralName: 'collections';
+    displayName: 'Collection';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    versions: {
+      versioned: true;
+    };
+  };
+  attributes: {
+    photos: Attribute.Relation<
+      'api::collection.collection',
+      'manyToMany',
+      'api::photo.photo'
+    >;
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        versions: {
+          versioned: true;
+        };
+      }>;
+    slug: Attribute.UID<'api::collection.collection', 'title'> &
+      Attribute.SetPluginOptions<{
+        versions: {
+          versioned: true;
+        };
+      }>;
+    color: Attribute.String &
+      Attribute.CustomField<'plugin::color-picker.color'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::collection.collection',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::collection.collection',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    versions: Attribute.Relation<
+      'api::collection.collection',
+      'manyToMany',
+      'api::collection.collection'
+    >;
+    vuid: Attribute.String;
+    versionNumber: Attribute.Integer & Attribute.DefaultTo<1>;
+    versionComment: Attribute.String;
+    isVisibleInListView: Attribute.Boolean & Attribute.DefaultTo<true>;
+  };
+}
+
+export interface ApiGalleryViewGalleryView extends Schema.SingleType {
+  collectionName: 'gallery_views';
+  info: {
+    singularName: 'gallery-view';
+    pluralName: 'gallery-views';
+    displayName: 'GalleryView';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    photos: Attribute.Relation<
+      'api::gallery-view.gallery-view',
+      'oneToMany',
+      'api::photo.photo'
+    >;
+    filters: Attribute.Component<'gallery.filter', true> &
+      Attribute.SetMinMax<
+        {
+          max: 7;
+        },
+        number
+      >;
+    quick_search: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::gallery-view.gallery-view',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::gallery-view.gallery-view',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiHomepageHomepage extends Schema.SingleType {
   collectionName: 'homepages';
   info: {
@@ -813,6 +1049,62 @@ export interface ApiHomepageHomepage extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::homepage.homepage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPhotoPhoto extends Schema.CollectionType {
+  collectionName: 'photos';
+  info: {
+    singularName: 'photo';
+    pluralName: 'photos';
+    displayName: 'Photo';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    photo: Attribute.Media<'images'> & Attribute.Required;
+    title: Attribute.String;
+    color: Attribute.String &
+      Attribute.CustomField<'plugin::color-picker.color'>;
+    collections: Attribute.Relation<
+      'api::photo.photo',
+      'manyToMany',
+      'api::collection.collection'
+    >;
+    EXIF: Attribute.JSON & Attribute.CustomField<'plugin::purah.EXIF'>;
+    internal_id: Attribute.String & Attribute.Private & Attribute.Unique;
+    iso: Attribute.Integer;
+    aperture: Attribute.Decimal;
+    focal_length: Attribute.Integer;
+    camera_body: Attribute.String;
+    camera_lens: Attribute.String;
+    mode: Attribute.String;
+    last_modified: Attribute.DateTime;
+    taken: Attribute.DateTime;
+    metering_mode: Attribute.String;
+    shutter_speed: Attribute.Decimal;
+    birds: Attribute.Relation<
+      'api::photo.photo',
+      'oneToMany',
+      'api::bird.bird'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::photo.photo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::photo.photo',
       'oneToOne',
       'admin::user'
     > &
@@ -853,6 +1145,38 @@ export interface ApiPostPost extends Schema.CollectionType {
   };
 }
 
+export interface ApiTempTemp extends Schema.CollectionType {
+  collectionName: 'temps';
+  info: {
+    singularName: 'temp';
+    pluralName: 'temps';
+    displayName: 'Temp';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    photo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    exif: Attribute.JSON & Attribute.CustomField<'plugin::purah.EXIF'>;
+    iso: Attribute.Integer;
+    taken: Attribute.DateTime;
+    zone: Attribute.DynamicZone<['gallery.filter', 'gallery.tag']>;
+    key: Attribute.String & Attribute.CustomField<'plugin::purah.PhotoKey'>;
+    filters: Attribute.JSON &
+      Attribute.CustomField<'plugin::purah.FilterSelect'>;
+    birds: Attribute.Relation<'api::temp.temp', 'oneToMany', 'api::bird.bird'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::temp.temp', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::temp.temp', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -871,8 +1195,15 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'plugin::menus.menu': PluginMenusMenu;
+      'plugin::menus.menu-item': PluginMenusMenuItem;
+      'api::bird.bird': ApiBirdBird;
+      'api::collection.collection': ApiCollectionCollection;
+      'api::gallery-view.gallery-view': ApiGalleryViewGalleryView;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::photo.photo': ApiPhotoPhoto;
       'api::post.post': ApiPostPost;
+      'api::temp.temp': ApiTempTemp;
     }
   }
 }

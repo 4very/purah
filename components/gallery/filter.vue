@@ -47,8 +47,8 @@ const results = ref(0)
       v-for="(filter, i) in filters"
       :key="i"
       :title="filter.name"
-      :total="filter.filters.sum"
-      :values="filter.filters.values"
+      :total="filter.filters.count"
+      :values="filter.filters.items"
       :type="filter.type"
       v-model:checked="checked[filter.key]"
     >

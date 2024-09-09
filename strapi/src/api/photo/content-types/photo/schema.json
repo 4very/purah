@@ -73,6 +73,11 @@
     },
     "shutter_speed": {
       "type": "decimal"
+    },
+    "birds": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bird.bird"
     }
   }
 }

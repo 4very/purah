@@ -31,6 +31,7 @@ const FilterSelect = React.forwardRef((props, ref) => {
 
   const { modifiedData, ...rest } = useCMEditViewDataManager()
   const path = name.split('.')
+
   const key = path
     .slice(0, -1)
     .reduce((a: any, cv: any) => a[cv], modifiedData).key
@@ -50,8 +51,8 @@ const FilterSelect = React.forwardRef((props, ref) => {
             val.forEach((v: any) => {
               a.sum++
               const elt = String(v ?? 'None')
-              if (v in a.values) a.values[v]++
-              else a.values[v] = 1
+              if (elt in a.values) a.values[v]++
+              else a.values[elt] = 1
             })
 
             return a

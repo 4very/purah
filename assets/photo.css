@@ -32,6 +32,7 @@ section#art_main {
   padding-bottom: 0;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 #collection_nav,

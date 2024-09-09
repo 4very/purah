@@ -8,7 +8,7 @@ import {
 const props = defineProps<{
   title: string
   total: number
-  values: [string, number][]
+  values: { raw_value: string; count: number }[]
   type?: string
 }>()
 
@@ -47,18 +47,23 @@ const f = (v: string, e: any) => {
     >
       <ul id="gallery-filter-list">
         <li
-          v-for="([val, num], i) in values.slice(0, expanded ? undefined : 3)"
-          :key="val"
+          v-for="({ raw_value, count }, i) in values.slice(
+            0,
+            expanded ? undefined : 3
+          )"
+          :key="raw_value"
           id="gallery-filter-item"
         >
           <input
             type="checkbox"
-            @change="f(val, $event)"
+            @change="f(raw_value, $event)"
           />
           <span id="gallery-filter-title">{{
-            type === 'date' ? new Date(val).toLocaleDateString() : val
+            type === 'date'
+              ? new Date(raw_value).toLocaleDateString()
+              : raw_value
           }}</span>
-          <span id="gallery-filter-total">{{ num }}</span>
+          <span id="gallery-filter-total">{{ count }}</span>
         </li>
       </ul>
     </div>

@@ -23,13 +23,12 @@ const divisions = ref(4)
 watch(
   [search, filtersOpen],
   async ([newSearch, deferSearch]) => {
-    // if (deferSearch) return
     if (search.value === '') photos.value = gallery.data.attributes.photos.data
     else {
       const r = await $fetch('/api/search', {
         query: { q: newSearch },
       }).catch(() => {})
-      console.log(r)
+      // console.log(r)
       photos.value = r.data
     }
   },

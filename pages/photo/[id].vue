@@ -29,7 +29,7 @@ const collections = photo.data.attributes.collections?.data
 <template>
   <main id="art_page">
     <div id="art_return">
-      <NuxtLink to="/gallery"><ArrowLeftIcon />Return</NuxtLink>
+      <a @click="$router.back()"><ArrowLeftIcon />Return</a>
     </div>
     <section id="art_main">
       <div id="art_image">

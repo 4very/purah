@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "birds",
+  "info": {
+    "singularName": "bird",
+    "pluralName": "birds",
+    "displayName": "bird",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "speciesCode": {
+      "type": "uid"
+    },
+    "comName": {
+      "type": "string",
+      "required": true
+    },
+    "sciName": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "taxonOrder": {
+      "type": "decimal"
+    },
+    "order": {
+      "type": "string"
+    },
+    "familyCode": {
+      "type": "string"
+    },
+    "familyComName": {
+      "type": "string"
+    },
+    "FamilySciName": {
+      "type": "string"
+    }
+  }
+}

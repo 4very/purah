@@ -2,8 +2,10 @@
 
 import { Media } from '../common/Media';
 import { Collection } from './collection';
+import { Bird } from './bird';
 import { Media_Plain } from '../common/Media';
 import { Collection_Plain } from './collection';
+import { Bird_Plain } from './bird';
 import { AdminPanelRelationPropertyModification } from '../common/AdminPanelRelationPropertyModification';
 
 export interface Photo {
@@ -25,6 +27,7 @@ export interface Photo {
     taken?: Date;
     metering_mode?: string;
     shutter_speed?: number;
+    birds: { data: Bird[] };
   };
 }
 export interface Photo_Plain {
@@ -45,6 +48,7 @@ export interface Photo_Plain {
   taken?: Date;
   metering_mode?: string;
   shutter_speed?: number;
+  birds: Bird_Plain[];
 }
 
 export interface Photo_NoRelations {
@@ -65,6 +69,7 @@ export interface Photo_NoRelations {
   taken?: Date;
   metering_mode?: string;
   shutter_speed?: number;
+  birds: number[];
 }
 
 export interface Photo_AdminPanelLifeCycle {
@@ -85,4 +90,5 @@ export interface Photo_AdminPanelLifeCycle {
   taken?: Date;
   metering_mode?: string;
   shutter_speed?: number;
+  birds: AdminPanelRelationPropertyModification<Bird_Plain>;
 }

@@ -1,7 +1,7 @@
 import { TokenType, Token } from '../types/lexer'
 
 function isStringChar(char: string): boolean {
-  return /^[A-Za-z0-9_/]$/.test(char)
+  return /^[A-Za-z0-9_\-/]$/.test(char)
 }
 
 function isOperatorChar(char: string): boolean {

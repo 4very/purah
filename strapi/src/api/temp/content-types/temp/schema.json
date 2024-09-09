@@ -50,6 +50,11 @@
     "filters": {
       "type": "customField",
       "customField": "plugin::purah.FilterSelect"
+    },
+    "birds": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bird.bird"
     }
   }
 }

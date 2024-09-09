@@ -31,11 +31,13 @@ const lookup_table: Record<string, string[]> = {
   metering_mode: ['focus_mode'],
   collections: ['collection', 'c_title', 'collection_title', 'c'],
   slug: ['c_slug', 'collection_slug', 'collections_slug'],
+  birds: ['bird', 'b'],
 }
 
 const relation_searches: Record<string, string[]> = {
   collections: ['collections', 'title'],
   slug: ['collections', 'slug'],
+  birds: ['birds', 'comName'],
 }
 
 const key_groups: Record<string, filter[]> = {}
