@@ -3,11 +3,13 @@ import { setup, $fetch } from '@nuxt/test-utils/e2e'
 import LEXER_TESTS from './lexer'
 import * as PARSER from './parser'
 import * as EVALUATE from './evaluate'
+import * as REFORM from './reform'
 
 const ENDPOINTS = {
   LEXER: '/api/lexer',
   PARSER: '/api/parser',
   EVALUATE: '/api/evaluate',
+  REFORM: '/api/reform',
 }
 
 const log = console.log
@@ -99,5 +101,30 @@ describe('Link', async () => {
         })
       })
     })
+  })
+
+  describe('Reform', async () => {
+    REFORM.TESTS.forEach(([query, expected]) =>
+      test(`"${query}"`, async () => {
+        const r = await $fetch(ENDPOINTS.REFORM, { query: { q: query } })
+        onTestFailed(() =>
+          log(
+            'Reform test failed: ',
+            query,
+            '\n',
+            JSON.stringify(r, undefined, 4)
+          )
+        )
+        expect(r).toEqual(expected)
+      })
+    )
+    // describe('Error', () => {
+    //   EVALUATE.ERRORS.forEach(([query, expected]) => {
+    //     test(`"${query}"`, async () => {
+    //       const r = $fetch(ENDPOINTS.REFORM, { query: { q: query } })
+    //       expect(r).rejects.toThrow(expected)
+    //     })
+    //   })
+    // })
   })
 })

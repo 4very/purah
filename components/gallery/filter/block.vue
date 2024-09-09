@@ -3,6 +3,7 @@ import {
   ChevronDownIcon,
   ArrowDownIcon,
   MagnifyingGlassIcon,
+  CheckCircleIcon,
 } from '@heroicons/vue/24/outline'
 
 const props = defineProps<{
@@ -10,13 +11,21 @@ const props = defineProps<{
   total: number
   values: { raw_value: string; count: number }[]
   type?: string
+  update: Function
 }>()
 
 const collapsed = ref(false)
 const expanded = ref(false)
 const search = ref('')
 
-const [checked] = defineModel<string[]>('checked', { default: [] })
+const [checked] = defineModel<(string | undefined)[]>('checked', {
+  default: [],
+})
+
+// watch(checked, (c) => console.log('checked ' + props.title + ',', c), {
+//   deep: true,
+//   immediate: true,
+// })
 
 if (props.type && props.type === 'date') {
 }
@@ -24,6 +33,7 @@ if (props.type && props.type === 'date') {
 const f = (v: string, e: any) => {
   if (e.target.checked) checked.value.push(v)
   else checked.value.splice(checked.value.indexOf(v), 1)
+  props.update()
 }
 </script>
 
@@ -56,8 +66,10 @@ const f = (v: string, e: any) => {
         >
           <input
             type="checkbox"
+            :checked="checked.includes(raw_value)"
             @change="f(raw_value, $event)"
           />
+          <!-- <label :for="i.toString()">{{ raw_value }}</label> -->
           <span id="gallery-filter-title">{{
             type === 'date'
               ? new Date(raw_value).toLocaleDateString()

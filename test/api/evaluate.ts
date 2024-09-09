@@ -38,12 +38,12 @@ export const TESTS: [string, any][] = [
             $or: [
               {
                 iso: {
-                  $contains: 'value1',
+                  $contains: 'value2',
                 },
               },
               {
                 iso: {
-                  $contains: 'value2',
+                  $contains: 'value1',
                 },
               },
             ],
@@ -84,12 +84,7 @@ export const TESTS: [string, any][] = [
             $or: [
               {
                 iso: {
-                  $contains: 'value1',
-                },
-              },
-              {
-                iso: {
-                  $contains: 'value2',
+                  $contains: 'value4',
                 },
               },
               {
@@ -99,7 +94,12 @@ export const TESTS: [string, any][] = [
               },
               {
                 iso: {
-                  $contains: 'value4',
+                  $contains: 'value2',
+                },
+              },
+              {
+                iso: {
+                  $contains: 'value1',
                 },
               },
             ],

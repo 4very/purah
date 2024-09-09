@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ReformedFilter } from '~/server/types/reform'
 import type { Filter } from '~/strapi/src/types/components/gallery/Filter'
 
 const props = defineProps<{
@@ -7,38 +8,31 @@ const props = defineProps<{
 
 const [search] = defineModel<string>('search')
 const [filtersOpen] = defineModel<boolean>('filtersOpen')
-
-const checked: { [key: string]: string[] } = reactive(
-  Object.fromEntries(props.filters.map((filter) => [filter.key, []]))
-)
-
-// watch(checked, (c) => console.log(c), { deep: true })
-
-watch(
-  checked,
-  async (newChecked) => {
-    const r: string[] = []
-
-    for (let [key, values] of Object.entries(checked)) {
-      if (values.length == 0) continue
-      const cleanedValues = values.map((value) =>
-        value.includes(' ') ? `(${value})` : value
-      )
-      r.push(`${key}:${cleanedValues.join(':')}`)
-    }
-
-    const q = r.join(' ')
-    search.value = q
-
-    const req = await $fetch('/api/search/count', {
-      query: { q },
-    })
-    results.value = req
-  },
-  { deep: true }
-)
+const [reformed] = defineModel<ReformedFilter>('reformed')
 
 const results = ref(0)
+
+const checked = computed(() => {
+  const value: ReformedFilter = {}
+  for (const filter of props.filters) {
+    value[filter.key] =
+      reformed.value && filter.key in reformed.value
+        ? reformed.value[filter.key]
+        : reactive([])
+  }
+  return value
+})
+
+watch([search, filtersOpen], async ([newSearch]) => {
+  if (!filtersOpen) return
+  console.log('hello', newSearch)
+  const req = await $fetch('/api/search/count', {
+    query: { q: newSearch },
+  })
+  results.value = req
+})
+
+const update = () => updateSearchFromReformed(checked, search)
 </script>
 
 <template>
@@ -51,6 +45,7 @@ const results = ref(0)
       :values="filter.filters.items"
       :type="filter.type"
       v-model:checked="checked[filter.key]"
+      :update="update"
     >
     </GalleryFilterBlock>
 

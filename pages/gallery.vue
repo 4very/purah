@@ -1,24 +1,24 @@
 <script lang="ts" setup>
 import type { Photo } from '~/strapi/src/types/api/photo'
-import type { GalleryView } from '~/strapi/src/types/api/gallery-view'
+import type { ReformedFilter } from '~/server/types/reform'
 
-const { findOne } = useStrapi<GalleryView['attributes']>()
-const query = useRoute().query
-
-const gallery = await findOne('gallery-view', {
-  populate: {
-    filters: '*',
-    photos: {
-      populate: ['photo'],
-    },
-  },
-})
-
+const gallery = await getGallery()
 let photos: Ref<Photo[]> = ref([])
 
+const query = useRoute().query
 const search = ref(query.q ? (query.q as string) : '')
 const filtersOpen = ref(false)
 const divisions = ref(4)
+const reformedFilters: Ref<ReformedFilter> = ref({})
+
+watch(
+  search,
+  async (newSearch) => {
+    await updateReformedFromSearch(newSearch, reformedFilters)
+    console.log(reformedFilters.value)
+  },
+  { immediate: true }
+)
 
 watch(
   [search, filtersOpen],
@@ -47,6 +47,7 @@ watch(
       v-show="filtersOpen"
       :filters="gallery.data.attributes.filters"
       v-model:search="search"
+      v-model:reformed="reformedFilters"
       v-model:filtersOpen="filtersOpen"
     ></GalleryFilter>
     <GalleryBody

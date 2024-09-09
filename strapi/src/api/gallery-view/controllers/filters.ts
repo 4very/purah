@@ -52,7 +52,10 @@ async function updateFilter(filter: Filter, photos: Photo[]): Promise<Filter> {
       const inc = (value) =>
         value in prev
           ? prev[value].count++
-          : (prev[value] = { raw_value: value, count: 1 })
+          : (prev[value] = {
+              raw_value: typeof value === 'number' ? value.toString() : value,
+              count: 1,
+            })
 
       if (Array.isArray(values)) values.forEach(inc)
       else inc(values)
