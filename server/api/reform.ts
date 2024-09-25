@@ -115,5 +115,5 @@ export default defineEventHandler<{ query: { q: string } }>(async (event) => {
     const ast = parser.produceAST(query.q)
     return reform(ast)
   }
-  return {}
+  return []
 })

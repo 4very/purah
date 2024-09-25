@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { Photo } from '~/strapi/src/types/api/photo'
+import type { Photo, Photo_Plain } from '~/strapi/src/types/api/photo'
 import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 
 const route = useRoute()
-const id = Number((route.params.id as string) ?? '1')
+const id = route.params.id as string
 
-const { findOne } = useStrapi<Photo['attributes']>()
+const { findOne } = useStrapi<Photo_Plain>()
 const photo = await findOne('photos', id, {
   populate: {
     photo: {
@@ -21,8 +21,8 @@ const photo = await findOne('photos', id, {
   },
 })
 
-const color = photo.data.attributes.color ?? '$background'
-const collections = photo.data.attributes.collections?.data
+const color = photo.data.color ?? '$background'
+const collections = photo.data.collections
 // console.log(collections)
 </script>
 
@@ -34,7 +34,7 @@ const collections = photo.data.attributes.collections?.data
     <section id="art_main">
       <div id="art_image">
         <NuxtImg
-          :src="`http://localhost:1337${photo.data.attributes.photo.data.attributes.url}`"
+          :src="`http://localhost:1337${photo.data.photo.url}`"
         ></NuxtImg>
       </div>
     </section>
@@ -44,7 +44,7 @@ const collections = photo.data.attributes.collections?.data
       :collection="collections"
     ></PhotoCollectionBump>
     <section id="photo_info">
-      <PhotoAbout :photo="photo.data.attributes"></PhotoAbout>
+      <PhotoAbout :photo="photo.data"></PhotoAbout>
     </section>
   </main>
 </template>

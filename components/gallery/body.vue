@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { Photo } from '~/strapi/src/types/api/photo'
+import type { Photo, Photo_Plain } from '~/strapi/src/types/api/photo'
 
 const strapiUrl = useStrapiUrl()
-console.log(strapiUrl)
 
 const props = defineProps<{
-  photos: Photo[]
+  photos: Photo_Plain[]
   divisions: number
 }>()
 
@@ -22,13 +21,13 @@ const divisions = computed(() => 7 - props.divisions)
     <div id="gallery-photo-grid">
       <div
         v-for="photo in photos"
-        :key="photo.id"
+        :key="photo.documentId"
         id="gallery-grid-item"
       >
-        <NuxtLink :to="`/photo/${photo.id}`">
+        <NuxtLink :to="`/photo/${photo.documentId}`">
           <NuxtImg
             provider="strapi"
-            :src="photo.attributes.photo.data.attributes.formats.medium.url"
+            :src="photo.photo.formats.medium.url"
           />
         </NuxtLink>
       </div>

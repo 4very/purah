@@ -2,8 +2,10 @@
 
 import { Media } from '../common/Media';
 import { Bird } from './bird';
+import { User } from '../common/User';
 import { Media_Plain } from '../common/Media';
 import { Bird_Plain } from './bird';
+import { User_Plain } from '../common/User';
 import { AdminPanelRelationPropertyModification } from '../common/AdminPanelRelationPropertyModification';
 
 export interface Temp {
@@ -18,6 +20,7 @@ export interface Temp {
   key?: any;
   filters?: any;
   birds: { data: Bird[] };
+  users_permissions_user?: { data: User };
 }
 export interface Temp_Plain {
   documentId: string;
@@ -31,6 +34,7 @@ export interface Temp_Plain {
   key?: any;
   filters?: any;
   birds: Bird_Plain[];
+  users_permissions_user?: User_Plain;
 }
 
 export interface Temp_NoRelations {
@@ -45,6 +49,7 @@ export interface Temp_NoRelations {
   key?: any;
   filters?: any;
   birds: number[];
+  users_permissions_user?: number;
 }
 
 export interface Temp_AdminPanelLifeCycle {
@@ -59,4 +64,5 @@ export interface Temp_AdminPanelLifeCycle {
   key?: any;
   filters?: any;
   birds: AdminPanelRelationPropertyModification<Bird_Plain>;
+  users_permissions_user?: AdminPanelRelationPropertyModification<User_Plain>;
 }

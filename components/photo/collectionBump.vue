@@ -1,21 +1,25 @@
 <script setup lang="ts">
-import type { Collection } from '~/strapi/src/types/api/collection'
+import type {
+  Collection,
+  Collection_Plain,
+} from '~/strapi/src/types/api/collection'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
+import type { Photo_Plain } from '~/strapi/src/types/api/photo'
 
 const props = defineProps<{
-  photo_id: number
-  collection: Collection[]
+  photo_id: string
+  collection: Collection_Plain[]
 }>()
 
 const collection = props.collection[0]
 
-const photo_index = collection.attributes.photos?.data.findIndex(
-  (photo) => photo.id === props.photo_id
+const photo_index = collection.photos?.findIndex(
+  (photo) => photo.documentId === props.photo_id
 ) as number
 
-const total_photos = collection.attributes.photos?.data.length
-const next_photo = collection.attributes.photos?.data[photo_index + 1]
-const last_photo = collection.attributes.photos?.data[photo_index - 1]
+const total_photos = collection.photos?.length
+const next_photo = (collection.photos as Photo_Plain[])[photo_index + 1]
+const last_photo = (collection.photos as Photo_Plain[])[photo_index - 1]
 
 // if (in_collection) {
 //   const collection = collections.data[0]
@@ -29,22 +33,22 @@ const last_photo = collection.attributes.photos?.data[photo_index - 1]
     <div id="collection_link">
       <span>
         Part of
-        <NuxtLink :to="`/collection/${collection.attributes.slug}`">{{
-          collection.attributes.title
+        <NuxtLink :to="`/collection/${collection.slug}`">{{
+          collection.title
         }}</NuxtLink>
       </span>
     </div>
     <div id="collection_nav">
       <NuxtLink
         :class="{ invisible: !last_photo }"
-        :to="last_photo?.id.toString() ?? ''"
+        :to="last_photo?.documentId.toString() ?? ''"
       >
         <ChevronLeftIcon />
       </NuxtLink>
       <div>{{ photo_index + 1 }}/{{ total_photos }}</div>
       <NuxtLink
         :class="{ invisible: !next_photo }"
-        :to="next_photo?.id.toString() ?? ''"
+        :to="next_photo?.documentId.toString() ?? ''"
       >
         <ChevronRightIcon />
       </NuxtLink>
