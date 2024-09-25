@@ -7,22 +7,22 @@ import { Bird_Plain } from './bird';
 import { AdminPanelRelationPropertyModification } from '../common/AdminPanelRelationPropertyModification';
 
 export interface Temp {
-  id: number;
-  attributes: {
-    createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    title?: string;
-    photo?: { data: Media };
-    exif?: any;
-    iso?: number;
-    taken?: Date;
-    zone?: any;
-    key?: any;
-    filters?: any;
-    birds: { data: Bird[] };
-  };
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  title?: string;
+  photo?: { data: Media };
+  exif?: any;
+  iso?: number;
+  taken?: Date;
+  zone?: any;
+  key?: any;
+  filters?: any;
+  birds: { data: Bird[] };
 }
 export interface Temp_Plain {
-  id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title?: string;
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  title?: string;
   photo?: Media_Plain;
   exif?: any;
   iso?: number;
@@ -34,8 +34,9 @@ export interface Temp_Plain {
 }
 
 export interface Temp_NoRelations {
-  id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title?: string;
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  title?: string;
   photo?: number;
   exif?: any;
   iso?: number;
@@ -47,8 +48,9 @@ export interface Temp_NoRelations {
 }
 
 export interface Temp_AdminPanelLifeCycle {
-  id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title?: string;
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  title?: string;
   photo?: AdminPanelRelationPropertyModification<Media_Plain>;
   exif?: any;
   iso?: number;

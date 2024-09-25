@@ -1,6 +1,6 @@
-import { Strapi } from '@strapi/strapi'
+import type { Core } from '@strapi/strapi';
 
-export default ({ strapi }: { strapi: Strapi }) => {
+const register = ({ strapi }: { strapi: Core.Strapi }) => {
   strapi.customFields.register({
     name: 'EXIF',
     plugin: 'purah',
@@ -10,7 +10,7 @@ export default ({ strapi }: { strapi: Strapi }) => {
       default: 12,
       isResizable: true,
     },
-  })
+  });
 
   strapi.customFields.register({
     name: 'PhotoKey',
@@ -21,7 +21,7 @@ export default ({ strapi }: { strapi: Strapi }) => {
       default: 12,
       isResizable: true,
     },
-  })
+  });
 
   strapi.customFields.register({
     name: 'FilterSelect',
@@ -32,5 +32,7 @@ export default ({ strapi }: { strapi: Strapi }) => {
       default: 12,
       isResizable: true,
     },
-  })
-}
+  });
+};
+
+export default register;

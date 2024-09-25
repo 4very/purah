@@ -8,33 +8,35 @@ import { Filter_NoRelations } from '../components/gallery/Filter';
 import { AdminPanelRelationPropertyModification } from '../common/AdminPanelRelationPropertyModification';
 
 export interface GalleryView {
-  id: number;
-  attributes: {
-    createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    title?: string;
-    photos: { data: Photo[] };
-    filters: Filter[];
-    quick_search?: boolean;
-  };
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  title?: string;
+  photos: { data: Photo[] };
+  filters: Filter[];
+  quick_search?: boolean;
 }
 export interface GalleryView_Plain {
-  id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title?: string;
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  title?: string;
   photos: Photo_Plain[];
   filters: Filter_Plain[];
   quick_search?: boolean;
 }
 
 export interface GalleryView_NoRelations {
-  id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title?: string;
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  title?: string;
   photos: number[];
   filters: Filter_NoRelations[];
   quick_search?: boolean;
 }
 
 export interface GalleryView_AdminPanelLifeCycle {
-  id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title?: string;
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  title?: string;
   photos: AdminPanelRelationPropertyModification<Photo_Plain>;
   filters: Filter_Plain[];
   quick_search?: boolean;

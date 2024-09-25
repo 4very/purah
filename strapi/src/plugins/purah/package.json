@@ -1,53 +1,70 @@
 {
   "name": "purah",
   "version": "0.0.0",
-  "description": "This is the description of the plugin.",
-  "strapi": {
-    "name": "purah",
-    "description": "Description of purah plugin",
-    "kind": "plugin"
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "Avery Sommer <asommer999@gmail.com>",
+  "type": "commonjs",
+  "exports": {
+    "./package.json": "./package.json",
+    "./strapi-admin": {
+      "types": "./dist/admin/src/index.d.ts",
+      "source": "./admin/src/index.ts",
+      "import": "./dist/admin/index.mjs",
+      "require": "./dist/admin/index.js",
+      "default": "./dist/admin/index.js"
+    },
+    "./strapi-server": {
+      "types": "./dist/server/src/index.d.ts",
+      "source": "./server/src/index.ts",
+      "import": "./dist/server/index.mjs",
+      "require": "./dist/server/index.js",
+      "default": "./dist/server/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "strapi-plugin build",
+    "test:ts:back": "run -T tsc -p server/tsconfig.json",
+    "test:ts:front": "run -T tsc -p admin/tsconfig.json",
+    "verify": "strapi-plugin verify",
+    "watch": "strapi-plugin watch",
+    "watch:link": "strapi-plugin watch:link"
   },
   "dependencies": {
-    "@strapi/design-system": "^2.0.0-rc.7",
-    "@strapi/helper-plugin": "^4.25.3",
-    "@strapi/icons": "^2.0.0-rc.7",
+    "@strapi/design-system": "^2.0.0-rc.11",
+    "@strapi/icons": "^2.0.0-rc.11",
     "exifr": "^7.1.3",
-    "prop-types": "^15.7.2"
+    "react-intl": "^6.7.0"
   },
   "devDependencies": {
-    "@strapi/design-system-v2": "npm:@strapi/design-system@rc",
-    "@strapi/typescript-utils": "^4.25.3",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.0.28",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.32",
+    "@strapi/sdk-plugin": "^5.2.6",
+    "@strapi/strapi": "^5.0.0",
+    "@strapi/typescript-utils": "^5.0.0",
+    "@types/react": "^18.3.9",
+    "@types/react-dom": "^18.3.0",
+    "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.24.1",
-    "styled-components": "^6.1.12",
-    "typescript": "5.5.3"
+    "react-router-dom": "^6.26.2",
+    "styled-components": "^6.1.13",
+    "typescript": "^5.6.2"
   },
   "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0",
-    "react-router-dom": "^5.2.0",
-    "styled-components": "^5.2.1"
+    "@strapi/sdk-plugin": "^5.2.6",
+    "@strapi/strapi": "^5.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "styled-components": "^6.1.13"
   },
-  "author": {
-    "name": "A Strapi developer"
-  },
-  "maintainers": [
-    {
-      "name": "A Strapi developer"
-    }
-  ],
-  "engines": {
-    "node": ">=18.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
-  },
-  "scripts": {
-    "develop": "tsc -p tsconfig.server.json -w",
-    "build": "tsc -p tsconfig.server.json"
-  },
-  "license": "MIT"
+  "strapi": {
+    "kind": "plugin",
+    "name": "purah",
+    "displayName": "",
+    "description": ""
+  }
 }

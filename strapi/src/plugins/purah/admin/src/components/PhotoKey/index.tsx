@@ -1,44 +1,26 @@
 import * as React from 'react'
-
-import { useIntl } from 'react-intl'
-import { useCMEditViewDataManager } from '@strapi/helper-plugin'
-import {
-  JSONInput,
-  FieldLabel,
-  Field,
-  IconButton,
-  FieldError,
-  Combobox,
-  ComboboxOption,
-  CreatableCombobox,
-} from '@strapi/design-system'
+import { Field, Combobox, ComboboxOption } from '@strapi/design-system'
 
 import photoSchema from '../../../../../../api/photo/content-types/photo/schema.json'
 
 const PhotoKey = React.forwardRef((props, ref) => {
   // @ts-ignore
-  const { attribute, disabled, intlLabel, name, onChange, required, value } =
-    props // these are just some of the props passed by the content-manager
-  const { formatMessage } = useIntl()
-
+  const { attribute, disabled, label, name, onChange, required, value } = props
   const handleChange = (e: any) => {
     onChange({
       target: { name, type: attribute.type, value: e },
     })
   }
-  const {
-    modifiedData,
-    onChange: onChangeForm,
-    ...rest
-  } = useCMEditViewDataManager()
 
   const comboOptions = Object.keys(photoSchema.attributes).map((key) => (
-    <ComboboxOption value={key}>{key}</ComboboxOption>
+    <ComboboxOption key={key} value={key}>
+      {key}
+    </ComboboxOption>
   ))
 
   return (
-    <Field name="PhotoKey">
-      <FieldLabel>{formatMessage(intlLabel)} </FieldLabel>
+    <Field.Root name="PhotoKey">
+      <Field.Label>{label}</Field.Label>
       <Combobox
         ref={ref}
         name={name}
@@ -49,8 +31,8 @@ const PhotoKey = React.forwardRef((props, ref) => {
       >
         {comboOptions}
       </Combobox>
-      <FieldError />
-    </Field>
+      <Field.Error />
+    </Field.Root>
   )
 })
 

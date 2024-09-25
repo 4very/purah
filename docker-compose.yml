@@ -31,6 +31,7 @@ services:
       - ./.env:/opt/app/.env
       - ./strapi/public/uploads:/opt/app/public/uploads
     ports:
+      - '5173:5173'
       - '1337:1337'
     networks:
       - strapi

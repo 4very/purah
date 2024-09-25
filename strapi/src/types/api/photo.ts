@@ -9,30 +9,30 @@ import { Bird_Plain } from './bird';
 import { AdminPanelRelationPropertyModification } from '../common/AdminPanelRelationPropertyModification';
 
 export interface Photo {
-  id: number;
-  attributes: {
-    createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    photo: { data: Media };
-    title?: string;
-    color?: any;
-    collections?: { data: Collection[] };
-    EXIF?: any;
-    internal_id?: string;
-    iso?: number;
-    aperture?: number;
-    focal_length?: number;
-    camera_body?: string;
-    camera_lens?: string;
-    mode?: string;
-    last_modified?: Date;
-    taken?: Date;
-    metering_mode?: string;
-    shutter_speed?: number;
-    birds: { data: Bird[] };
-  };
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  photo: { data: Media };
+  title?: string;
+  color?: any;
+  collections?: { data: Collection[] };
+  EXIF?: any;
+  internal_id?: string;
+  iso?: number;
+  aperture?: number;
+  focal_length?: number;
+  camera_body?: string;
+  camera_lens?: string;
+  mode?: string;
+  last_modified?: Date;
+  taken?: Date;
+  metering_mode?: string;
+  shutter_speed?: number;
+  birds: { data: Bird[] };
 }
 export interface Photo_Plain {
-  id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  photo: Media_Plain;
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  photo: Media_Plain;
   title?: string;
   color?: any;
   collections?: Collection_Plain[];
@@ -52,8 +52,9 @@ export interface Photo_Plain {
 }
 
 export interface Photo_NoRelations {
-  id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  photo: number;
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  photo: number;
   title?: string;
   color?: any;
   collections?: number[];
@@ -73,8 +74,9 @@ export interface Photo_NoRelations {
 }
 
 export interface Photo_AdminPanelLifeCycle {
-  id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  photo: AdminPanelRelationPropertyModification<Media_Plain>;
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  photo: AdminPanelRelationPropertyModification<Media_Plain>;
   title?: string;
   color?: any;
   collections?: AdminPanelRelationPropertyModification<Collection_Plain>;

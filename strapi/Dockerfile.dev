@@ -16,6 +16,7 @@ RUN yarn add ${EXTRA_PACKAGE}
 WORKDIR /opt/app
 COPY . .
 RUN chown -R node:node /opt/app
+RUN chown -R node:node /opt/node_modules
 USER node
 # RUN ["yarn", "build"]
 EXPOSE 1337

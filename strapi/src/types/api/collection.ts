@@ -5,33 +5,35 @@ import { Photo_Plain } from './photo';
 import { AdminPanelRelationPropertyModification } from '../common/AdminPanelRelationPropertyModification';
 
 export interface Collection {
-  id: number;
-  attributes: {
-    createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    photos?: { data: Photo[] };
-    title: string;
-    slug?: string;
-    color?: any;
-  };
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  photos?: { data: Photo[] };
+  title: string;
+  slug?: string;
+  color?: any;
 }
 export interface Collection_Plain {
-  id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  photos?: Photo_Plain[];
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  photos?: Photo_Plain[];
   title: string;
   slug?: string;
   color?: any;
 }
 
 export interface Collection_NoRelations {
-  id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  photos?: number[];
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  photos?: number[];
   title: string;
   slug?: string;
   color?: any;
 }
 
 export interface Collection_AdminPanelLifeCycle {
-  id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  photos?: AdminPanelRelationPropertyModification<Photo_Plain>;
+  documentId: string;
+  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;
+  photos?: AdminPanelRelationPropertyModification<Photo_Plain>;
   title: string;
   slug?: string;
   color?: any;

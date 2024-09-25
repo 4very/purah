@@ -56,12 +56,16 @@ async function updateAndFetchBird(speciesCode: string) {
 }
 
 async function updateBird(data: EBirdResponse) {
-  const res = await strapi.entityService.findMany('api::bird.bird', {
+  const res = await strapi.documents('api::bird.bird').findMany({
     filters: { speciesCode: data.speciesCode },
   })
 
-  if (res.length === 0) strapi.entityService.create('api::bird.bird', { data })
-  else strapi.entityService.update('api::bird.bird', res[0].id, { data })
+  if (res.length === 0) strapi.documents('api::bird.bird').create({ data })
+  else
+    strapi.documents('api::bird.bird').update({
+      documentId: res[0].documentId,
+      data,
+    })
 
   return data
 }
@@ -98,11 +102,11 @@ export default {
     ctx.response.status = 200
   },
   async all(ctx: Context) {
-    const codes = await strapi.entityService
-      .findMany('api::bird.bird', {
+    const codes = await strapi
+      .documents('api::bird.bird')
+      .findMany({
         fields: ['speciesCode'],
       })
-      //@ts-ignore
       .then((d) => d.map((b) => b.speciesCode))
 
     await updateBirds(codes)

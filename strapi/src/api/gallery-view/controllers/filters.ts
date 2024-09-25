@@ -1,4 +1,3 @@
-import { JSONObject, JsonValue } from '@strapi/types/dist/types/core/attributes'
 import { GalleryView_Plain } from '../../../types/api/gallery-view'
 
 type FilterData = {
@@ -25,6 +24,7 @@ const KEY_TRANSFORMS: {
       ? photo.collections.map((c) => c.title)
       : 'None',
   birds: (key, photo) =>
+    //@ts-ignore
     photo.birds.length > 0 ? photo.birds.map((bird) => bird.comName) : 'None',
   DEFAULT: (key, photo) => photo[key] ?? 'None',
 }
@@ -35,7 +35,9 @@ function transform_key(key: string, photo: Photo): string[] | string {
 }
 
 async function getGalleryView(): Promise<GalleryView_Plain> {
-  return strapi.entityService.findMany('api::gallery-view.gallery-view', {
+  //@ts-ignore
+  return strapi.documents('api::gallery-view.gallery-view').findFirst({
+    //@ts-ignore
     populate: {
       filters: '*',
       photos: { populate: ['birds', 'collections'] },
@@ -75,10 +77,12 @@ async function updateFilter(filter: Filter, photos: Photo[]): Promise<Filter> {
   }
 }
 
-async function setFilters(filters: Filter[]) {
-  await strapi.entityService.update('api::gallery-view.gallery-view', 1, {
+async function setFilters(documentId: string, filters: Filter[]) {
+  await strapi.documents('api::gallery-view.gallery-view').update({
+    documentId,
     populate: ['filters'],
     data: {
+      //@ts-ignore
       filters,
     },
   })
@@ -86,11 +90,11 @@ async function setFilters(filters: Filter[]) {
 
 export default {
   async update(ctx) {
-    const { filters, photos } = await getGalleryView()
+    const { documentId, filters, photos } = await getGalleryView()
     const newFilters = filters.map((filter, i) => updateFilter(filter, photos))
 
     await Promise.all(newFilters)
-      .then(setFilters)
+      .then((filters) => setFilters(documentId, filters))
       .then(() => (ctx.body = 'OK'))
   },
 }

@@ -2,7 +2,8 @@ export default [
   {
     method: 'GET',
     path: '/',
-    handler: 'myController.index',
+    // name of the controller file & the method.
+    handler: 'controller.index',
     config: {
       policies: [],
     },
