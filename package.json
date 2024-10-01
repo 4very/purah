@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@nuxt/image": "^1.7.0",
-    "@nuxtjs/strapi": "github:XanderD99/strapi-nuxt#strapi-v5",
+    "@nuxtjs/strapi": "npm:@nuxtjs/strapi-edge@latest",
     "@strapi/types": "^5.0.1",
     "@types/qs": "^6.9.15",
     "nuxt": "^3.11.2",
